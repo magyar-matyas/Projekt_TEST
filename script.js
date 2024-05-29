@@ -1,17 +1,18 @@
 const jatekter = document.querySelector('#jatekter');
 const context = jatekter.getContext('2d');
+const jatekos = document.querySelector('.player');
 
 const fal = 10;
 const labirintus = [
     [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 1, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 0, 1, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1, 1, 0],
-    [0, 1, 0, 0, 0, 1, 0, 1, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
 ];
 
@@ -39,19 +40,14 @@ labirintusGen();
 //     szin: 'piros'
 // };
 
-// function rajzolJatekos() {
-//     context.fillStyle = jatekos.szin;
-//     context.fillRect(jatekos.x * fal, jatekos.y * fal, jatekos.meret, jatekos.meret);
-// }
-
 // function cel() {
 //     context.fillStyle = cel.szin;
 //     context.fillRect(cel.x * fal, cel.y * fal, cel.meret, cel.meret);
 // }
 
-// function uresPalya() {
-//     context.clearRect(0, 0, jatekter.width, jatekter.height);
-// }
+function uresPalya() {
+    context.clearRect(0, 0, jatekter.width, jatekter.height);
+}
 
 // function frissitJatek() {
 //     uresPalya();
@@ -60,24 +56,24 @@ labirintusGen();
 //     cel();
 // }
 
-// function mozgatas(dx, dy) {
-//     const ujX = jatekos.x + dx;
-//     const ujY = jatekos.y + dy;
+function mozgatas(dx, dy) {
+    const ujX = jatekos.x + dx;
+    const ujY = jatekos.y + dy;
 
-//     if (ujX >= 0 && ujX < labirintus[0].length && ujY >= 0 && ujY < labirintus.length && labirintus[ujY][ujX] === 0) {
-//         jatekos.x = ujX;
-//         jatekos.y = ujY;
-//     }
+    if (ujX >= 0 && ujX < labirintus[0].length && ujY >= 0 && ujY < labirintus.length && labirintus[ujY][ujX] === 0) {
+        jatekos.x = ujX;
+        jatekos.y = ujY;
+    }
 
 
 
-//     if (jatekos.x === cel.x && jatekos.y === cel.y) {
-//         alert("Gratulálok! Nyertél!");
-//         jatekos.x = 0;
-//         jatekos.y = 9;
-//         frissitJatek();
-//     }
-// }
+    if (jatekos.x === cel.x && jatekos.y === cel.y) {
+        alert("Gratulálok! Nyertél!");
+        jatekos.x = 0;
+        jatekos.y = 9;
+        frissitJatek();
+    }
+}
 
 // document.addEventListener('keydown', (esemeny) => {
 //     switch (esemeny.key) {

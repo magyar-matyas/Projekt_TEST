@@ -1,5 +1,6 @@
 body {
     height: 100vh;
+    background-color: lightblue;
 }
 canvas {
     border: 1px solid black;
@@ -18,4 +19,11 @@ canvas {
     width: 50px;
     height: 50px;
     background-color: red;
+}
+
+#button{
+    background-color: red;
+    color: black;
+    border: 1px solid black;
+    margin: 0 auto;
 }
