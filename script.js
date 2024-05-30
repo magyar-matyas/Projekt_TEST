@@ -1,60 +1,90 @@
-const jatekter = document.querySelector('#jatekter');
-const context = jatekter.getContext('2d');
-const jatekos = document.querySelector('.player');
+const canvas = document.getElementById('jatekter');
+const jatekos = document.getElementById('jatekos');
+const ctx = canvas.getContext('2d');
 
-const fal = 10;
-const labirintus = [
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 0, 1, 1, 1, 1, 1, 0, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-    [0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+const matrix = [
+    [1, 1, 1, 3, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+    [1, 1, 1, 0, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 1, 0, 1, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 2, 1]
 ];
 
-function labirintusGen() {
-    for (let sor = 0; sor < labirintus.length; sor++) {
-        for (let oszlop = 0; oszlop < labirintus[0].length; oszlop++) {
-            context.fillStyle = ["black", "white"][labirintus[sor][oszlop]];
-            context.fillRect(oszlop * fal, sor * fal, fal, fal);
+const squareSize = 50; // Each square is 50x50 pixels
+
+
+matrix.forEach((row, rowIndex) => {
+    row.forEach((value, colIndex) => {
+        switch(value) {
+            case 1:
+                ctx.fillStyle = 'black';
+                break;
+            case 0:
+                ctx.fillStyle = 'white';
+                break;
+            case 2:
+                ctx.fillStyle = "red";
+                break;
+            case 3:
+                ctx.fillStyle = 'blue';
+                break;
+            default:
+                ctx.fillStyle = 'white';
         }
-    }
-}
-labirintusGen();
+        ctx.fillRect(colIndex * squareSize, rowIndex * squareSize, squareSize, squareSize);
+    });
+});
 
-// const jatekos = {
-//     x: 0,
-//     y: 9,
-//     meret: fal,
-//     szin: 'kék'
-// };
 
-// const cel = {
-//     x: 9,
-//     y: 0,
-//     meret: fal,
-//     szin: 'piros'
-// };
 
-// function cel() {
-//     context.fillStyle = cel.szin;
-//     context.fillRect(cel.x * fal, cel.y * fal, cel.meret, cel.meret);
-// }
 
 function uresPalya() {
     context.clearRect(0, 0, jatekter.width, jatekter.height);
 }
 
-// function frissitJatek() {
-//     uresPalya();
-//     labirintusGen();
-//     rajzolJatekos();
-//     cel();
-// }
+function findRedTile() {
+    for (let rowIndex = 0; rowIndex < matrix.length; rowIndex++) {
+        for (let colIndex = 0; colIndex < matrix[rowIndex].length; colIndex++) {
+            if (matrix[rowIndex][colIndex] === 2) {
+                return { rowIndex, colIndex };
+            }
+        }
+    }
+}
+
+function moveRedTile(dx, dy) {
+    const { rowIndex, colIndex } = findRedTile();
+    const newRow = rowIndex + dy;
+    const newCol = colIndex + dx;
+
+    if (newRow >= 0 && newRow < matrix.length && newCol >= 0 && newCol < matrix[0].length && matrix[newRow][newCol] === 0) {
+        matrix[rowIndex][colIndex] = 0;
+        matrix[newRow][newCol] = 2;
+        drawMatrix();
+    }
+}
+
+document.addEventListener('keydown', (event) => {
+    switch(event.key) {
+        case 'w':
+            moveRedTile(0, -1);
+            break;
+        case 'a':
+            moveRedTile(-1, 0);
+            break;
+        case 's':
+            moveRedTile(0, 1);
+            break;
+        case 'd':
+            moveRedTile(1, 0);
+            break;
+    }
+});
 
 function mozgatas(dx, dy) {
     const ujX = jatekos.x + dx;
