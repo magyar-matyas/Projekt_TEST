@@ -1,29 +1,44 @@
 body {
-    height: 100vh;
-    background-color: lightblue;
+  height: 100vh;
+  background-color: lightblue;
 }
 canvas {
-    width: 500px;
-    height: 500px;
-    margin: 0 auto;
-    display: block;
-    background-color: white;   
+  margin: 0 auto;
+  display: block;
+  background-color: white;
 }
 
-#jatekos {
-    position: absolute;
-    background-image: url('/kepek/rallycar_asset_player.png');
-    width: 50px;
-    height: 50px;
-    background-size: 50px 50px;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+.popup {
+  display: none;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #000;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 24px;
 }
 
-#button{
-    background-color: red;
-    color: black;
-    border: 1px solid black;
-    margin: 0 auto;
+.popup.show {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.button:hover {
+  background-color: #45a049;
 }
