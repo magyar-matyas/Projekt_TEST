@@ -1,5 +1,11 @@
 const canvas = document.getElementById("jatekter");
 const ctx = canvas.getContext("2d");
+const squareSize = 50;
+const carImage = new Image();
+carImage.src = "/kepek/rallycar_asset_player.png";
+let irány = "down";
+const tüskeImage = new Image();
+tüskeImage.src = "/kepek/tüske.png";
 
 const matrix = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
@@ -20,13 +26,6 @@ const matrix = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
-
-const squareSize = 50;
-const carImage = new Image();
-carImage.src = "/kepek/rallycar_asset_player.png";
-let irány = "down";
-const tüskeImage = new Image();
-tüskeImage.src = "/kepek/tüske.png";
 
 carImage.onload = () => {
   matrixKiír();
