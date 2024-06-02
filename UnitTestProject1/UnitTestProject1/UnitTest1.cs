@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.Extensions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -97,23 +98,26 @@ namespace UnitTestProject1
         public void TimerStartsOnPlayButtonClick()
         {
             GameTests();
-            driver.FindElement(By.Id("play-button")).Click();
-            Thread.Sleep(1000);
-
-            var elapsedTime = (long)((IJavaScriptExecutor)driver).ExecuteScript("return elapsedTime;");
-            Assert.IsTrue(elapsedTime > 0);
+            var Timer = driver.FindElement(By.Id("timer")).Text;
+            var minutes = int.Parse(Timer.Split(':')[1]);
+            var seconds = int.Parse(Timer.Split(':')[2]);
+            var time = minutes * 60 + seconds;
+            Assert.IsTrue(time > 0);
         }
+
+
         [TestMethod]
-        public void UpdateRecordTime()
+        public void TimerStopsOnGameOver()
         {
             GameTests();
-            ((IJavaScriptExecutor)driver).ExecuteScript("recordTime = 1000;");
-            foreach (var charakter in "sddssssaaaaaaaawwaaaaaaassssddwwdddssddddssddddddssssssaaaaaaaaaaaaaaaaas")
-            {
-                PressKeyGlobally(charakter);
-            }
-            var newRecordTime = int.Parse(System.IO.File.ReadAllText("record.txt"));
-            Assert.IsTrue(newRecordTime < 1000);
+            Thread.Sleep(5000);
+            PressKeyGlobally('w');
+            PressKeyGlobally('w');
+            PressKeyGlobally('w');
+            var Timer = driver.FindElement(By.Id("timer")).Text;
+            Thread.Sleep(1000);
+            var Timer2 = driver.FindElement(By.Id("timer")).Text;
+            Assert.AreEqual(Timer, Timer2);
         }
 
         [TestMethod]
@@ -130,12 +134,14 @@ namespace UnitTestProject1
         public void BackgroundColorChange()
         {
             GameTests();
-            driver.FindElement(By.Id("menu-button")).Click();
-            driver.FindElement(By.Id("background-color-selector")).SendKeys("blue");
-            driver.FindElement(By.Id("apply-button")).Click();
-            var backgroundColor = (string)((IJavaScriptExecutor)driver).ExecuteScript("return document.body.style.backgroundColor;");
-            Assert.AreEqual("blue", backgroundColor);
+            PressKeyGlobally('w');
+            Thread.Sleep(100);
+            var initialSytle = driver.FindElement(By.XPath("//*[@id=\"shot-effect\"]")).GetCssValue("display");
+            Assert.AreEqual("block", initialSytle);
         }
+
+
+
     }
 }
 

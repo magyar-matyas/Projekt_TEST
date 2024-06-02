@@ -43,11 +43,39 @@ canvas {
   background-color: #45a049;
 }
 
-#life-bar{
+#life-bar {
   position: absolute;
   left: 90%;
   top: 10px;
   background-color: #f44336;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 24px;
+}
+
+#shot-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    transparent 85%,
+    red 90%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
+#timer {
+  position: absolute;
+  top: 10px;
+  left: 48%;
+  background-color: #4caf50;
   color: white;
   padding: 10px;
   border-radius: 5px;

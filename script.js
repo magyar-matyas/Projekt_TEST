@@ -8,6 +8,9 @@ const tüskeImage = new Image();
 tüskeImage.src = "/kepek/tüske.png";
 let life = document.getElementById("life-bar");
 let lifeValue = 3;
+let time = document.getElementById("timer");
+let timeInterval;
+
 
 const matrix = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
@@ -28,6 +31,8 @@ const matrix = [
   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
   [1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
+
+startTimer();
 
 carImage.onload = () => {
   matrixKiír();
@@ -181,10 +186,10 @@ function KocsiMozgat(dx, dy) {
     if (dx === 1 && dy === 0) irány = "right";
 
     matrixKiír();
-  }
-  else {
+  } else {
     lifeValue--;
     life.textContent = "Életpont: " + lifeValue;
+    HáttérVillanAmikorLifeCsökken();
     if (lifeValue === 0) {
       showPopup("Összetört a kocsid!");
     }
@@ -208,6 +213,8 @@ function showPopup(message) {
 
   const playAgainButton = document.getElementById("game-again-button");
   playAgainButton.addEventListener("click", playAgain);
+
+  clearInterval(timeInterval);
 }
 
 function handleKeyDown(event) {
@@ -233,6 +240,43 @@ function playAgain() {
 
 function returnToHomepage() {
   window.location.href = "fooldal.html";
+}
+
+function HáttérVillanAmikorLifeCsökken() {
+  if (lifeValue === 2) {
+    applyShotEffect("red");
+  }
+  if (lifeValue === 1) {
+    applyShotEffect("darkred");
+  }
+}
+
+function applyShotEffect(color) {
+  let shotEffect = document.getElementById("shot-effect");
+
+  if (!shotEffect) {
+    shotEffect = document.createElement("div");
+    shotEffect.id = "shot-effect";
+    document.body.appendChild(shotEffect);
+  }
+  shotEffect.style.background = `radial-gradient(circle, transparent 85%, ${color} 90%, transparent 100%)`;
+  shotEffect.style.display = "block";
+  setTimeout(() => {
+    shotEffect.style.display = "none";
+  }, 500);
+}
+
+function startTimer() {
+  let seconds = 0;
+  let minutes = 0;
+  timeInterval = setInterval(() => {
+    seconds++;
+    if (seconds === 60) {
+      seconds = 0;
+      minutes++;
+    }
+    time.textContent = `Idő:${minutes}:${seconds}`;
+  }, 1000);
 }
 
 document.addEventListener("keydown", handleKeyDown);
