@@ -6,6 +6,8 @@ carImage.src = "/kepek/rallycar_asset_player.png";
 let irány = "down";
 const tüskeImage = new Image();
 tüskeImage.src = "/kepek/tüske.png";
+let life = document.getElementById("life-bar");
+let lifeValue = 3;
 
 const matrix = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1],
@@ -179,6 +181,13 @@ function KocsiMozgat(dx, dy) {
     if (dx === 1 && dy === 0) irány = "right";
 
     matrixKiír();
+  }
+  else {
+    lifeValue--;
+    life.textContent = "Életpont: " + lifeValue;
+    if (lifeValue === 0) {
+      showPopup("Összetört a kocsid!");
+    }
   }
 }
 

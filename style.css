@@ -42,3 +42,14 @@ canvas {
 .button:hover {
   background-color: #45a049;
 }
+
+#life-bar{
+  position: absolute;
+  left: 90%;
+  top: 10px;
+  background-color: #f44336;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 24px;
+}
