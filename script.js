@@ -179,7 +179,7 @@ function KocsiMozgat(dx, dy) {
       if(lifeValue > 0)
        return alert(`Tüskébe ütköztél! ${lifeValue} életpontod maradt!`);
       else {
-      showPopup("Meghaltál egy tüskében!");
+      showPopup("Meghaltál egy tüske miatt!");
       return ;
       }
     }
