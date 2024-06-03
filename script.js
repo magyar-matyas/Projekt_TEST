@@ -173,15 +173,8 @@ function KocsiMozgat(dx, dy) {
     if (matrix[newRowIndex][newColIndex] === 4) {
       matrix[newRowIndex][newColIndex] = 5;
       matrixKiír();
-      lifeValue--;
-      life.textContent = "Életpont: " + lifeValue;
-      HáttérVillanAmikorÉletCsökken();
-      if(lifeValue > 0)
-       return alert(`Tüskébe ütköztél! ${lifeValue} életpontod maradt!`);
-      else {
-      showPopup("Meghaltál egy tüske miatt!");
-      return ;
-      }
+      showPopup("Meghaltál egy tüskében!");
+      return;
     }
 
     matrix[rowIndex][colIndex] = 0;
@@ -196,7 +189,7 @@ function KocsiMozgat(dx, dy) {
   } else {
     lifeValue--;
     life.textContent = "Életpont: " + lifeValue;
-    HáttérVillanAmikorÉletCsökken();
+    HáttérVillanAmikorLifeCsökken();
     if (lifeValue === 0) {
       showPopup("Összetört a kocsid!");
     }
@@ -249,7 +242,7 @@ function returnToHomepage() {
   window.location.href = "fooldal.html";
 }
 
-function HáttérVillanAmikorÉletCsökken() {
+function HáttérVillanAmikorLifeCsökken() {
   if (lifeValue === 2) {
     applyShotEffect("red");
   }
